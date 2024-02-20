@@ -1,16 +1,35 @@
 import express from 'express';
-const app = express()
-import dotenv from 'dotenv'
+
+import dotenv from 'dotenv';
+import morgan from 'morgan';
+import connectDB from './Config/db.js';
+import authRoutes from './routes/authRouter.js';
+
 
 
 //configure env
 dotenv.config();
 
+//database configure
+connectDB();
+
+const app = express()
+
+
+
+//middleware
+app.use(express.json())
+app.use(morgan('dev'))
+
+
+//routes
+app.use("/api/v1/auth",authRoutes );
+
 //rest Api
 
 
 app.get('/', (req,res)=> {
-    res.send('Hello World hii')
+    res.send('Hello World hiiii')
   })
   
   //1. define port number from env file 
